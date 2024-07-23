@@ -18,12 +18,12 @@ export default function MiniPostHome({post}) {
             </h4>
           </div>
           <div className="post-date pb-2">
-            <time className="text-base text-gray-500 dark:text-gray-400" dateTime={publishedAt}>
+            <time className="text-sm text-gray-500 dark:text-gray-400" dateTime={publishedAt}>
               {fullDateFormat(publishedAt)}
             </time>
           </div>
           <div className="post-text">
-              <p className="text-gray-700 dark:text-gray-600 text-sm sm:text-sm line-clamp-3">
+              <p className="text-gray-700 dark:text-gray-600 text-sm line-clamp-3">
                   {description}
               </p>
           </div>

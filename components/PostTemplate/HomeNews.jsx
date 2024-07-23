@@ -9,14 +9,14 @@ export default async function HomeNews({posts}) {
       <Body>
         <div className="main-post">
           <h6 className="font-bold">{'Notas destacadas'}</h6>
-          <div className="posts grid grid-cols-2 grid-rows-2 gap-4">
-            <div className="row-span-3">
+          <div className="posts grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2">
             {
               posts.slice(0, 1).map(item => (
-                <MainPostHome post={item} />
+                <div className="row-span-2">
+                  <MainPostHome post={item} />
+                </div>
               ))
             }
-            </div>
             {
               posts.slice(1, 3).map(item => (
                 <div key={`minipost-${item.title.replaceAll(' ', '-')}`} className="row-span-1">
@@ -26,7 +26,9 @@ export default async function HomeNews({posts}) {
             }
           </div>
         </div>
-        <LastNews posts={posts.slice(4)} />
+        <div className="pt-8">
+          <LastNews posts={posts.slice(4)} />
+        </div>
       </Body>
     );
   }

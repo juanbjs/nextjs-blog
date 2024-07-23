@@ -15,7 +15,7 @@ export default function MainPostHome({post}) {
           </h4>
         </div>
         <div className="post-date pb-2">
-          <time className="text-base text-gray-500 dark:text-gray-400" dateTime={publishedAt}>
+          <time className="text-sm text-gray-500 dark:text-gray-400" dateTime={publishedAt}>
             {fullDateFormat(publishedAt)}
           </time>
         </div>

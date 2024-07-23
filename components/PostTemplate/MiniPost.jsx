@@ -1,3 +1,4 @@
+import { fullDateFormat } from "@/util/dateFormat";
 import Image from "next/image";
 
 export default function MiniPost({post}) {
@@ -10,17 +11,17 @@ export default function MiniPost({post}) {
           <img src={urlToImage} alt={title} />
         </div>
         <div className="post-title pb-4">
-          <h4 className="font-bold text-gray-900 dark:text-white text-base sm:text-lg md:text-lg lg:text-xl xl:text-2xl">
+          <h4 className="font-bold text-gray-900 dark:text-white text-base">
             <a href={url} title={title} target="_blank" >{title}</a>
           </h4>
         </div>
         <div className="post-date flex pb-4">
-          <p className="text-base text-gray-500 dark:text-gray-400">
-            {publishedAt}
-          </p>
+          <time className="text-sm text-gray-500 dark:text-gray-400" dateTime={publishedAt}>
+            {fullDateFormat(publishedAt)}
+          </time>
         </div>
         <div className="post-text">
-            <p className="text-gray-700 dark:text-gray-600 text-sm sm:text-sm">
+            <p className="text-gray-700 dark:text-gray-600 text-sm">
                 {description}
             </p>
         </div>
