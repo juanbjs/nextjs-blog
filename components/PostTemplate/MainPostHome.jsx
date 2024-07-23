@@ -5,7 +5,7 @@ export default function MainPostHome({post}) {
     const {title, url, urlToImage, publishedAt, content, description} = post;
   
     return (
-      <div className="pt-4 pb-2 flex flex-col">
+      <div className="flex flex-col">
         <div className="main-img pb-4">
           <img src={urlToImage} alt={title} />
         </div>

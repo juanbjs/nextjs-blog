@@ -5,9 +5,9 @@ export default function MiniPostHome({post}) {
     const {title, slug, url, urlToImage, publishedAt, time, content, description} = post;
   
     return (
-      <div className="pt-4 pb-2 flex space-x-2">
+      <div className="flex space-x-2">
         <div className="w-3/5">
-          <div className="main-img pb-4 row-span-3">
+          <div className="main-img row-span-3">
             <img src={urlToImage} alt={title} />
           </div>
         </div>
