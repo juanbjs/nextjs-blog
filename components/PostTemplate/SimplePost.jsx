@@ -5,14 +5,14 @@ export default function SimplePost({post}) {
 
   return (
     <section className="w-full">
-      <div className="max-w-screen-lg mr-auto ml-auto">
+      <div className="mr-auto ml-auto sm:px-6 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-4xl xl:px-0">
         <div className="pt-8 pb-8 ">
           <div className="post-title">
-            <h1 className="mb-4 text-2xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-3xl dark:text-white">
+            <h1 className="mb-4 text-2xl font-extrabold leading-tight text-gray-900 lg:mb-6 dark:text-white text-base sm:text-lg md:text-lg lg:text-xl xl:text-2xl">
               {title}
             </h1>
           </div>
-          <div className="flex text-base text-gray-500 dark:text-gray-400">
+          <div className="flex text-base text-gray-500 dark:text-gray-400 pb-2">
             <time className="mr-2" dateTime="2024-02-08">
               {date}
             </time >

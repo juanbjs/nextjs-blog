@@ -49,7 +49,7 @@ module.exports = {
         stroke: {
           stroke: "#E3E8EF",
           dark: "#353943",
-        }, 
+        },
         gray: {
           ...colors.gray,
           dark: "#1E232E",

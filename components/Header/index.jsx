@@ -8,18 +8,17 @@ export default function Header() {
 
   return (
     <section className="w-full">
-      <div className="max-w-screen-lg mr-auto ml-auto">
-        <div className="grid grid-cols-12 gap-4 pt-8 pb-8">
-          <div className="logo col-span-3 flex items-center">
+      <div className="mr-auto ml-auto sm:px-6 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-4xl xl:px-0">
+        <div className="flex items-center pt-8 pb-8">
+          <div className="logo flex-1">
             <Link href="/">
               <p className="text-2xl">
                 {'Next JS - Blog'}
               </p>
             </Link>
           </div>
-          <div className="center col-span-7"></div>
-          <div className="rrss col-span-2">
-            <div className="flex">
+          <div className="rrss flex-1">
+            <div className="flex justify-end space-x-2">
               <FacebookIcon href={'https://www.facebook.com/'} />
               <InstagramIcon href={'https://www.instagram.com/'} />
               <XIcon href={'https://x.com/'} />

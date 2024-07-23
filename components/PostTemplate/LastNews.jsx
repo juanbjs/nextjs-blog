@@ -4,7 +4,7 @@ export default function LastNews({posts}) {
 
   return (
     <section className="w-full">
-      <div className="max-w-screen-lg mr-auto ml-auto">
+      <div className="mr-auto ml-auto sm:px-6 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-4xl xl:px-0">
         <div className="pt-8 pb-8 ">
           <div>
             <h1 className="mb-4 text-2xl font-light leading-tight text-gray-900 lg:mb-6 lg:text-3xl dark:text-white">

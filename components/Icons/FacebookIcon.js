@@ -2,7 +2,7 @@ export default function FacebookIcon({href}) {
   return (
     <a href={href}
       target="_blank"
-      className="p-2 rounded-lg flex items-center justify-center transition-all duration-500 hover:border-gray-100 hover:bg-gray-100">
+      className="p-2 rounded-lg flex items-center justify-center transition-all duration-500 hover:border-gray-100 hover:bg-gray-100 dark:bg-gray-100">
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 71 72"
       fill="none">
       <path

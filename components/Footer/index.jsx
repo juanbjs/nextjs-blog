@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <section className="w-full">
-      <div className="max-w-screen-lg mr-auto ml-auto">
+      <div className="mr-auto ml-auto sm:px-6 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-4xl xl:px-0">
         <div>
           <p className="text-2xl font-bold">
             {'¿Te gustaría recibir más información?'}

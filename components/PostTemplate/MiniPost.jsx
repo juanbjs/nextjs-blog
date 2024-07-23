@@ -10,7 +10,7 @@ export default function MiniPost({post}) {
           <img src={main_img} alt={title} />
         </div>
         <div className="post-title pb-4">
-          <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+          <h4 className="font-bold text-gray-900 dark:text-white text-base sm:text-lg md:text-lg lg:text-xl xl:text-2xl">
             {title}
           </h4>
         </div>
@@ -20,7 +20,7 @@ export default function MiniPost({post}) {
           </p>
         </div>
         <div className="post-text">
-            <p className="text-base text-gray-700 dark:text-gray-600">
+            <p className="text-gray-700 dark:text-gray-600 text-sm sm:text-sm">
                 {extract}
             </p>
         </div>
