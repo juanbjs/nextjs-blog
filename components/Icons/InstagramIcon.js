@@ -1,3 +1,9 @@
+import PropTypes from 'prop-types';
+
+InstagramIcon.propTypes = {
+  href: PropTypes.string.isRequired,
+};
+
 export default function InstagramIcon({href}) {
   return (
     <a href={href}

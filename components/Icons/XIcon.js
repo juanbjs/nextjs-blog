@@ -1,3 +1,9 @@
+import PropTypes from 'prop-types';
+
+XIcon.propTypes = {
+  href: PropTypes.string.isRequired,
+};
+
 export default function XIcon({href}) {
   return (
     <a href={href}

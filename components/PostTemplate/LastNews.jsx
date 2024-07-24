@@ -1,5 +1,11 @@
-import Body from "../Body/Body";
+import PropTypes from 'prop-types';
+
+
 import MiniPost from "./MiniPost";
+
+LastNews.propTypes = {
+  posts: PropTypes.array.isRequired,
+};
 
 export default function LastNews({posts}) {
 
@@ -14,7 +20,14 @@ export default function LastNews({posts}) {
         {
           posts.map((item, key) => (
             <div key={`minipost-${key}`} className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-3">
-              <MiniPost post={item} />
+              <MiniPost
+                title={item.title}
+                url={item.url}
+                urlToImage={item.urlToImage}
+                publishedAt={item.publishedAt}
+                content={item.content}
+                description={item.description}
+              />
             </div>
           ))
         }

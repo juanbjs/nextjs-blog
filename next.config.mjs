@@ -5,6 +5,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'cdn.conmebol.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ichef.bbci.co.uk',
       }
     ]
   }

@@ -1,7 +1,14 @@
+import PropTypes from 'prop-types';
 
-export default function SimplePost({post}) {
+SimplePost.propTypes = {
+  title: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
+  date: PropTypes.string,
+  time: PropTypes.string,
+  text: PropTypes.string.isRequired,
+};
 
-  const {title, slug, date, time, text} = post;
+export default function SimplePost({title, slug, date, time, text}) {
 
   return (
     <section className="w-full">

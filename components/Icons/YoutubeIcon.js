@@ -1,3 +1,9 @@
+import PropTypes from 'prop-types';
+
+YoutubeIcon.propTypes = {
+  href: PropTypes.string.isRequired,
+};
+
 export default function YoutubeIcon({href}) {
   return (
     <a href={href}

@@ -1,13 +1,23 @@
+import PropTypes from 'prop-types';
+
 import { fullDateFormat } from "@/util/dateFormat";
+import Image from 'next/image';
 
-export default function MainPostHome({post}) {
+MainPostHome.propTypes = {
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  urlToImage: PropTypes.string.isRequired,
+  publishedAt: PropTypes.string.isRequired,
+  content: PropTypes.string,
+  description: PropTypes.string.isRequired,
+};
 
-    const {title, url, urlToImage, publishedAt, content, description} = post;
-  
+export default function MainPostHome({title, url, urlToImage, publishedAt, content, description}) {
+
     return (
       <div className="flex flex-col">
         <div className="main-img pb-4">
-          <img src={urlToImage} alt={title} />
+          <Image src={urlToImage} alt={title} loading="lazy" width={500} height={500}/>
         </div>
         <div className="post-title pb-2">
           <h4 className="font-bold text-gray-900 dark:text-white text-base line-clamp-3">

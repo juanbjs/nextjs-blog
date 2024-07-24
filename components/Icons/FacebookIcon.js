@@ -1,3 +1,9 @@
+import PropTypes from 'prop-types';
+
+FacebookIcon.propTypes = {
+  href: PropTypes.string.isRequired,
+};
+
 export default function FacebookIcon({href}) {
   return (
     <a href={href}

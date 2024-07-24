@@ -1,14 +1,23 @@
+import PropTypes from 'prop-types';
+
 import { fullDateFormat } from "@/util/dateFormat";
 import Image from "next/image";
 
-export default function MiniPost({post}) {
+MiniPost.propTypes = {
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  urlToImage: PropTypes.string.isRequired,
+  publishedAt: PropTypes.string.isRequired,
+  content: PropTypes.string,
+  description: PropTypes.string.isRequired,
+};
 
-  const {title, url, urlToImage, publishedAt, content, description} = post;
-  
+export default function MiniPost({title, url, urlToImage, publishedAt, content, description}) {
+ 
     return (
       <div className="pt-4 pb-4">
         <div className="main-img pb-4">
-          <img src={urlToImage} alt={title} />
+          <Image src={urlToImage} alt={title} loading="lazy" width={500} height={500}/>
         </div>
         <div className="post-title pb-4">
           <h4 className="font-bold text-gray-900 dark:text-white text-base">

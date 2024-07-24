@@ -1,14 +1,24 @@
+import PropTypes from 'prop-types';
+
 import { fullDateFormat } from "@/util/dateFormat";
+import Image from 'next/image';
 
-export default function MiniPostHome({post}) {
+MiniPostHome.propTypes = {
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  urlToImage: PropTypes.string.isRequired,
+  publishedAt: PropTypes.string.isRequired,
+  content: PropTypes.string,
+  description: PropTypes.string.isRequired,
+};
 
-    const {title, slug, url, urlToImage, publishedAt, time, content, description} = post;
-  
+export default function MiniPostHome({title, slug, url, urlToImage, publishedAt, time, content, description}) {
+
     return (
       <div className="flex space-x-2">
         <div className="w-3/5">
           <div className="main-img row-span-3">
-            <img src={urlToImage} alt={title} />
+            <Image src={urlToImage} alt={title} loading="lazy" width={500} height={500}/>
           </div>
         </div>
         <div className="w-2/5">
