@@ -1,8 +1,16 @@
 import HomeNews from "@/components/PostTemplate/HomeNews";
 import { Suspense } from "react";
 
-async function getNews() {
+/*async function getNews() {
   const res = await fetch(`https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=${process.env.NEWS_API_KEY}`, {
+    rejectUnauthorized: false,
+    method: 'GET',
+  });
+  return res.json()
+}*/
+
+async function getNews() {
+  const res = await fetch(`${process.env.BACKEND_URL}/api/posts`, {
     rejectUnauthorized: false,
     method: 'GET',
   });
@@ -16,7 +24,7 @@ export default async function Home() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <HomeNews posts={news.articles} />
+      <HomeNews posts={news} />
     </Suspense>
   );
 }
