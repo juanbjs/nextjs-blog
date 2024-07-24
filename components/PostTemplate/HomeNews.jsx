@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import Body from "../Body/Body";
+import Body from "../Body";
 import LastNews from "./LastNews";
 import MainPostHome from "./MainPostHome";
 import MiniPostHome from "./MiniPostHome";

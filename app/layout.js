@@ -1,13 +1,11 @@
 "use client";
 
-import Header from "@/components/Header";
-import Menu from "@/components/Menu";
-import Footer from "@/components/Footer";
 import { Providers } from "./providers";
 
 import "../styles/index.css";
 
 import PropTypes from 'prop-types';
+import PublicLayout from "@/components/Layouts/PublicLayout";
 
 RootLayout.propTypes = {
   children: PropTypes.node.isRequired,
@@ -24,10 +22,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`bg-[#FCFCFC] dark:bg-black`}>
         <Providers>
-          <Header />
-          <Menu />
           {children}
-          <Footer />
         </Providers>
       </body>
     </html>

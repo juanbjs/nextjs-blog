@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import ThemeToggler from "../Header/ThemeToggler";
-import Body from "../Body/Body";
+import Body from "../Body";
 
 export default function Menu() {
   return (

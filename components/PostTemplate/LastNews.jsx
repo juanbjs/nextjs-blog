@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 
-
 import MiniPost from "./MiniPost";
 
 LastNews.propTypes = {

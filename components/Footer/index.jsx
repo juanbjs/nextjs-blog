@@ -1,5 +1,5 @@
 import Link from "next/link"
-import Body from "../Body/Body"
+import Body from "../Body"
 import FacebookIcon from "../Icons/FacebookIcon"
 import InstagramIcon from "../Icons/InstagramIcon"
 import XIcon from "../Icons/XIcon"
