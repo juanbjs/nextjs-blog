@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Pagination from "./Pagination";
+import { fullDateFormat } from "@/util/dateFormat";
 
 function getFieldValue(row, field) {
   const auxfield = field;
@@ -18,6 +19,10 @@ const getFieldType = (type, value) => {
           {value}
         </Link>
       );
+    case "fullDate":
+      return (
+        <p className="text-sm">{fullDateFormat(value)}</p>
+      );
     default:
       return <p className="text-sm">{value}</p>;
   }
@@ -28,10 +33,6 @@ const Table = ({ configuration, data }) => {
   const rowsPerPage = 10;
   const startPage = 1;
   const currentPage = (startPage - 1) * rowsPerPage;
-
-  console.log(configuration);
-  console.log(fields);
-  console.log(fields.filter((item) => item.showOnTable));
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -64,7 +65,7 @@ const Table = ({ configuration, data }) => {
                     .map((column, columnKey) => (
                       <td
                         key={column.id + "-" + columnKey}
-                        className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11"
+                        className="border-b border-[#eee] px-4 dark:border-strokedark xl:pl-11"
                       >
                         {getFieldType(
                           column.type,
