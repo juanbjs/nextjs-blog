@@ -1,18 +1,29 @@
 "use client";
 
-import { useState, useEffect, Suspense} from "react";
+import { useState, Suspense} from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import Breadcrumbs from "@/components/Breadcrumbs";
 import AdminLayout from "@/components/Layouts/AdminLayout";
+import TextField from "@/components/FormElements/TextField";
+
 
 import { entityConfiguration } from '../constants';
+import WysiwygField from "@/components/FormElements/WysiwygField";
 
 function initialValues() {
-  return {
-    title: "",
-  };
+
+  let init = {};
+
+  entityConfiguration
+    .fields
+    .filter(item => item.showOnForm)
+    .forEach(
+      item => init[item.id] = item.defaultValue
+    )
+
+  return init;
 }
 
 function validationSchema() {
@@ -20,6 +31,36 @@ function validationSchema() {
     title: Yup.string().required("Este campo es requerido"),
   };
 }
+
+const getFieldType = (type, field, formik) => {
+  switch (type) {
+    case "wysiwyg":
+      return (
+        <WysiwygField
+          key={`WysiwygField-${field.id}`}
+          toolbarClassName="toolbarClassName"
+          wrapperClassName="wrapperClassName"
+          editorClassName="editorClassName"
+          setFieldValue={(val) => formik.setFieldValue(field.id, val)}
+          value={formik.values[field.id]}
+        />
+      );
+    default:
+      return (
+        <TextField
+          key={`TextField-${field.id}`}
+          id={field.id}
+          label={field.label}
+          onChange={formik.handleChange}
+          value={formik.values[field.id]}
+          onInvalid={formik.errors[field.id]}
+          placeholder={field.label}
+          required={field.require}
+          autoFocus={true}
+        />
+      );
+  }
+};
 
 export default function NewPost() {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,24 +99,18 @@ export default function NewPost() {
           <form onSubmit={formik.handleSubmit}>
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="flex flex-col gap-4 p-6">
+                {
+                  entityConfiguration
+                    .fields
+                    .filter((item) => item.showOnForm)
+                    .map(
+                      flied => (
+                        getFieldType(flied.type, flied, formik)
+                      )
+                    )
+                }
                 <div>
-                  <label
-                    className="mb-3 block text-sm font-medium text-black dark:text-white"
-                    htmlFor="title"
-                  >
-                    Titulo
-                  </label>
-                  <input
-                    id ="title"
-                    placeholder="Titulo"
-                    onChange={formik.handleChange}
-                    value={formik.values.userEmail}
-                    onInvalid={formik.errors.userEmail}
-                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    type="text"
-                    required
-                    autoFocus
-                  />
+                  <p>formik values == {JSON.stringify(formik.values)}</p>
                 </div>
                 <div className="flex">
                   <button
