@@ -1,6 +1,7 @@
+import React, { Suspense } from "react";
+
 import PublicLayout from "@/components/Layouts/PublicLayout";
 import HomeNews from "@/components/PostTemplate/HomeNews";
-import { Suspense } from "react";
 
 async function getNews() {
   const res = await fetch(`${process.env.BACKEND_URL}/api/posts`, {

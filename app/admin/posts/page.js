@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 
 import Breadcrumbs from "@/components/Breadcrumbs";
 import AdminLayout from "@/components/Layouts/AdminLayout";

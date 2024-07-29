@@ -1,3 +1,5 @@
+import React from "react";
+
 import PropTypes from 'prop-types';
 
 SimplePost.propTypes = {
@@ -27,8 +29,7 @@ export default function SimplePost({title, slug, date, time, text}) {
               {time}
             </time>
           </div>
-          <div className="post-text" dangerouslySetInnerHTML={{__html: text}}>
-          </div>
+          {text}
         </div>
       </div>
     </section>

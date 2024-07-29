@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import PropTypes from 'prop-types';
 
 import { Editor } from "react-draft-wysiwyg";
 import { convertToRaw, ContentState, EditorState } from "draft-js";
@@ -7,7 +8,14 @@ import htmlToDraft from "html-to-draftjs";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-export default function WysiwygField({label, setFieldValue, value, onInvalid, placeholder, id, required, autoFocus}){
+WysiwygField.propTypes = {
+  key: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  setFieldValue: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+};
+
+export default function WysiwygField({key, label, setFieldValue, value}){
 
   const prepareDraft = (value) => {
     const draft = htmlToDraft(value);
@@ -29,7 +37,7 @@ export default function WysiwygField({label, setFieldValue, value, onInvalid, pl
   };
 
   return (
-    <div className="border-[1.5px] border-stroke bg-transparent">
+    <div key={key} className="border-[1.5px] border-stroke bg-transparent">
       <label
         className="mb-3 block text-sm font-medium text-black dark:text-white"
         htmlFor="title"

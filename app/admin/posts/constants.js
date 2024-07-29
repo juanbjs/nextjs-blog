@@ -71,7 +71,7 @@ const fields = [
     searchable: true,
     format: "",
     selectLabel: "",
-    require: true,
+    require: false,
     data: [],
   },
   {

@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { fullDateFormat } from "@/util/dateFormat";
@@ -24,7 +25,7 @@ export default function MiniPostHome({title, slug, url, urlToImage, publishedAt,
         <div className="w-2/5">
           <div className="post-title pb-2">
             <h4 className="font-bold text-gray-900 dark:text-white text-base line-clamp-3">
-              <a href={url} title={title} target="_blank" >{title}</a>
+              <a href={url} title={title} target="_blank" rel="noreferrer" >{title}</a>
             </h4>
           </div>
           <div className="post-date pb-2">
