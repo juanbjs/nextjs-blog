@@ -89,11 +89,8 @@ export default function NewPost() {
   });
 
   const create = async (formData) => {
-
-    formData.url = formData.title.toLowerCase().replace(/ /g, "-");
-
     try {
-      await fetch("/api/posts", {
+      await fetch("/api/posts/admin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

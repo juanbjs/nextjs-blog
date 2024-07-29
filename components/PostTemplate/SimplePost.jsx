@@ -1,16 +1,18 @@
 import React from "react";
 
 import PropTypes from 'prop-types';
+import Image from "next/image";
 
 SimplePost.propTypes = {
   title: PropTypes.string.isRequired,
+  urlToImage: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
   date: PropTypes.string,
   time: PropTypes.string,
   text: PropTypes.string.isRequired,
 };
 
-export default function SimplePost({title, slug, date, time, text}) {
+export default function SimplePost({title, urlToImage, slug, date, time, text}) {
 
   return (
     <section className="w-full">
@@ -21,6 +23,9 @@ export default function SimplePost({title, slug, date, time, text}) {
               {title}
             </h1>
           </div>
+          <div className="post-image pb-4">
+            <Image src={urlToImage} alt={title} loading="lazy" width={1024} height={1024}/>
+          </div>
           <div className="flex text-base text-gray-500 dark:text-gray-400 pb-2">
             <time className="mr-2" dateTime="2024-02-08">
               {date}
@@ -29,7 +34,9 @@ export default function SimplePost({title, slug, date, time, text}) {
               {time}
             </time>
           </div>
-          {text}
+          {
+            text && (<div dangerouslySetInnerHTML={{ __html: text }} />)
+          }
         </div>
       </div>
     </section>

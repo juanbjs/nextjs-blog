@@ -12,7 +12,7 @@ HomeNews.propTypes = {
 export default async function HomeNews({posts}) {
 
     return (
-      <Body>
+      <div>
         <div className="main-post">
           <h6 className="font-bold">{'Notas destacadas'}</h6>
           <div className="posts grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2">
@@ -20,6 +20,7 @@ export default async function HomeNews({posts}) {
               posts.slice(0, 1).map(item => (
                 <div className="row-span-2" key={`main-post-${item.title.replaceAll(' ', '-')}`}>
                   <MainPostHome
+                    id={item.slug}
                     title={item.title}
                     url={item.url}
                     urlToImage={item.urlToImage}
@@ -50,6 +51,6 @@ export default async function HomeNews({posts}) {
         <div className="pt-8">
           <LastNews posts={posts.slice(4)} />
         </div>
-      </Body>
+      </div>
     );
   }

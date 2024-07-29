@@ -5,39 +5,31 @@ import LastNews from "@/components/PostTemplate/LastNews";
 import SimplePost from "@/components/PostTemplate/SimplePost";
 
 import PropTypes from "prop-types";
+import { getPostBySlug } from "@/service/postsServices";
+import { getAllPosts } from "@/service/api/postsService";
 
 Page.propTypes = {
   params: PropTypes.object.isRequired,
 };
 
-async function getPostById(id) {
-
-  const res = await fetch(`${process.env.BACKEND_URL}/api/posts/${id}`, {
-    rejectUnauthorized: false,
-    method: 'GET',
-  });
-  return res.json()
-}
-
 export default async function Page({ params }) {
 
-  const postData = getPostById(params.slug);
-
-  const [post] = await Promise.all([postData])
+  const { slug } = params;
+  const post = await getPostBySlug(slug);
+  const posts = await getAllPosts();
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <PublicLayout>
         <SimplePost
           title={post.title}
+          urlToImage={post.urlToImage}
           slug={post.slug}
           date={post.date}
           time={post.time}
           text={post.content}
         />
-        {
-          //<LastNews posts={postArray} />
-        }
+        <LastNews posts={posts.slice(0, 4)} />
       </PublicLayout>
     </Suspense>
   )

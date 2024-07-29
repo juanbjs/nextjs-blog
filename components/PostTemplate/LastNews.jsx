@@ -20,6 +20,7 @@ export default function LastNews({posts}) {
           posts.map((item, key) => (
             <div key={`minipost-${key}`} className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-3">
               <MiniPost
+                id={item.slug}
                 title={item.title}
                 url={item.url}
                 urlToImage={item.urlToImage}

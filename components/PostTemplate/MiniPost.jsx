@@ -4,6 +4,7 @@ import { fullDateFormat } from "@/util/dateFormat";
 import Image from "next/image";
 
 MiniPost.propTypes = {
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   urlToImage: PropTypes.string.isRequired,
@@ -12,10 +13,10 @@ MiniPost.propTypes = {
   description: PropTypes.string.isRequired,
 };
 
-export default function MiniPost({title, url, urlToImage, publishedAt, content, description}) {
+export default function MiniPost({id, title, url, urlToImage, publishedAt, content, description}) {
  
     return (
-      <div className="pt-4 pb-4">
+      <div className="pt-4 pb-4" id = {id}>
         <div className="main-img pb-4">
           <Image src={urlToImage} alt={title} loading="lazy" width={500} height={500}/>
         </div>
