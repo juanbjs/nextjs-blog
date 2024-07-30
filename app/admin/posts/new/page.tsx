@@ -3,15 +3,13 @@
 import React, { useState, Suspense} from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Link from "next/link";
 
 import Breadcrumbs from "@/components/Breadcrumbs";
 import AdminLayout from "@/components/Layouts/AdminLayout";
-import TextField from "@/components/FormElements/TextField";
-
 
 import { entityConfiguration } from '../constants';
-import WysiwygField from "@/components/FormElements/WysiwygField";
-import Link from "next/link";
+import { getFieldType } from "@/helper/form/FormFields";
 
 function initialValues() {
 
@@ -39,39 +37,6 @@ function validationSchema() {
                   .required('Please enter website')*/
   };
 }
-
-const getFieldType = (type, field, formik) => {
-  switch (type) {
-    case "wysiwyg":
-      return (
-        <WysiwygField
-          key={`WysiwygField-${field.id}`}
-          toolbarClassName="toolbarClassName"
-          wrapperClassName="wrapperClassName"
-          editorClassName="editorClassName"
-          setFieldValue={(val) => formik.setFieldValue(field.id, val)}
-          value={formik.values[field.id]}
-        />
-      );
-    default:
-      return (
-        <>
-          <TextField
-            key={`TextField-${field.id}`}
-            id={field.id}
-            label={field.label}
-            onChange={formik.handleChange}
-            value={formik.values[field.id]}
-            onInvalid={formik.errors[field.id]}
-            placeholder={field.label}
-            required={field.require}
-            autoFocus={true}
-          />
-          {formik.errors[field.id] && <div>{formik.errors[field.id]}</div>}
-        </>
-      );
-  }
-};
 
 export default function NewPost() {
   const [isLoading, setIsLoading] = useState(false);
@@ -119,8 +84,8 @@ export default function NewPost() {
                     .fields
                     .filter((item) => item.showOnForm)
                     .map(
-                      flied => (
-                        getFieldType(flied.type, flied, formik)
+                      field => (
+                        getFieldType(field.type, field, formik.values, formik.handleChange, formik.errors, formik.setFieldValue)
                       )
                     )
                 }

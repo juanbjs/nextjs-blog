@@ -5,21 +5,10 @@ import AdminLayout from "@/components/Layouts/AdminLayout";
 import Table from "@/components/Table";
 
 import { entityConfiguration } from './constants';
-
-async function getPosts() {
-  const res = await fetch(`${process.env.BACKEND_URL}/api/posts`, {
-    rejectUnauthorized: false,
-    method: 'GET',
-  });
-  return res.json()
-}
+import { getAllPosts } from "@/service/postsServices";
 
 export default async function Posts() {
-  const postsData = getPosts();
-
-  const [posts] = await Promise.all([postsData])
-
-  console.log(posts);
+  const posts = getAllPosts();
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

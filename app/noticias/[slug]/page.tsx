@@ -4,19 +4,18 @@ import PublicLayout from "@/components/Layouts/PublicLayout";
 import LastNews from "@/components/PostTemplate/LastNews";
 import SimplePost from "@/components/PostTemplate/SimplePost";
 
-import PropTypes from "prop-types";
 import { getPostBySlug } from "@/service/postsServices";
 import { getAllPosts } from "@/service/api/postsService";
-
-Page.propTypes = {
-  params: PropTypes.object.isRequired,
-};
 
 export default async function Page({ params }) {
 
   const { slug } = params;
   const post = await getPostBySlug(slug);
   const posts = await getAllPosts();
+
+  if(!post) {
+    return <div>404</div>
+  }
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

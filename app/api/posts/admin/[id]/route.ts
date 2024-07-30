@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { getPostById, updatePost, deletePost } from '@/service/api/postsService';
+import Post from '@/model/posts';
 
 interface Params {
   id: string;
@@ -23,7 +24,7 @@ export async function PUT(req: NextRequest, context: { params: Params }): Promis
   const { id } = context.params;
 
   try {
-    const body = await req.json();
+    const body: Post = await req.json();
 
     if (!body) {
       return NextResponse.json({ error: 'Invalid data' }, { status: 400 });

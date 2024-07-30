@@ -8,13 +8,13 @@ import htmlToDraft from "html-to-draftjs";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-WysiwygField.propTypes = {
-  label: PropTypes.string.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired
-};
+interface WysiwygFieldProps {
+  label: string;
+  setFieldValue: any;
+  value: Array<any>;
+}
 
-export default function WysiwygField({label, setFieldValue, value}) {
+export default function WysiwygField({label, setFieldValue, value} : WysiwygFieldProps) {
 
   const prepareDraft = (value) => {
     const draft = htmlToDraft(value);

@@ -12,7 +12,3 @@ export async function GET(): Promise<NextResponse> {
     return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
   }
 }
-
-export default function Default() {
-  return Response.json("", {status: 405});
-}

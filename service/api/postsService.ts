@@ -60,6 +60,7 @@ export async function updatePost(post: Post, id: string) {
   const _id = ObjectId.createFromHexString(id);
   const db = await database();
 
+  post._id = _id;
   post.slug = post.title.toLowerCase().replace(/ /g, "-");
   post.url = `${post.category}/${post.slug}`;
 

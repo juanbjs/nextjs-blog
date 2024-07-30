@@ -1,4 +1,6 @@
-const fields = [
+import { EntityConfiguration, Field } from "@/model/EntityConfiguration";
+
+const fields: Array<Field> = [
   {
     id: "category",
     label: "Categorias",
@@ -136,9 +138,9 @@ const fields = [
   }
 ];
 
-export const entityConfiguration = {
+export const entityConfiguration: EntityConfiguration = {
   entity: "",
   title: "Posts",
   url: "",
-  fields: Array.from(fields),
+  fields: fields,
 }

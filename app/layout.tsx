@@ -1,11 +1,10 @@
 "use client";
 
-import { Providers } from "./providers";
+import { Providers } from "./providers"; 
 
 import "../styles/index.css";
 
 import PropTypes from 'prop-types';
-import PublicLayout from "@/components/Layouts/PublicLayout";
 
 RootLayout.propTypes = {
   children: PropTypes.node.isRequired,

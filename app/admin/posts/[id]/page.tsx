@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, Suspense, useEffect} from "react";
-import { useFormik } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 
@@ -10,9 +10,11 @@ import AdminLayout from "@/components/Layouts/AdminLayout";
 
 import { entityConfiguration } from '../constants';
 
-import { getPostById } from "@/service/postsServices";
+import { getPostById, update } from "@/service/postsServices";
 
-import { getFieldType } from "@/helper/form/FormFields";
+import { FormFields } from "@/helper/form/FormFields";
+import Post from "@/model/posts";
+import { Alert } from "@/model/Alert";
 
 function initialValues(post) {
 
@@ -50,7 +52,8 @@ export default function UpdatePost(context: { readonly params: Params }) {
   const { id } = context.params;
 
   const [isLoading, setIsLoading] = useState(false);
-  const [post, setPost] = useState();
+  const [post, setPost] = useState<Post>();
+  const [messages, setMessages] = useState<Array<Alert>>();
 
   useEffect(() => {
     setIsLoading(true);
@@ -67,74 +70,85 @@ export default function UpdatePost(context: { readonly params: Params }) {
     fetchPostData();
   }, [id]);
 
-  const formik = useFormik({
-    initialValues: initialValues(post || {}),
-    validationSchema: Yup.object(validationSchema()),
-    onSubmit: async (formData, { resetForm }) => {
-      setIsLoading(true);
-      console.log(formData);
-      create(formData)
-      resetForm({ values: "" });
-      setIsLoading(false);
-    },
-  });
+  const onSubmit = (values, { setSubmitting }) => {
+    const valuesOri: Post = post;
 
-  console.log(formik);
+    Object
+        .keys(values)
+        .forEach(key => {
+          valuesOri[key] = values[key]
+        });
 
-  const create = async (formData) => {
+    setSubmitting(false);
+    setIsLoading(true);
     try {
-      await fetch("/api/posts/admin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+      update(valuesOri);
 
-    if(isLoading) {
+    } catch (error) {
+      
+    }
+    setIsLoading(false);
+  }; 
+
+  if(isLoading) {
     return <div>Loading...</div>
   }
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <AdminLayout>
+      <AdminLayout
+        messages={messages}
+      >
         <Breadcrumbs pageName={entityConfiguration.title} rootName="Admin" />
         <div>
-          <form onSubmit={formik.handleSubmit}>
-            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-              <div className="flex flex-col gap-4 p-6">
-                {
-                  entityConfiguration
-                    .fields
-                    .filter((item) => item.showOnForm)
-                    .map(
-                      field => (
-                        getFieldType(field.type, field, formik)
-                      )
-                    )
-                }
-                <div className="flex">
-                  <Link
-                    className="w-32 flex-1 inline-flex items-center justify-center rounded-md border border-primary px-10 py-2 text-center font-medium text-primary hover:bg-opacity-90 lg:px-8 xl:px-10"
-                    href="/admin/posts"
-                  >
-                    Cancelar
-                  </Link>
-                  <div className="flex-1" />
-                  <button
-                    type="submit"
-                    className="w-32 flex-1 inline-flex items-center justify-center rounded-md bg-primary px-10 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
-                  >
-                    Guardar
-                  </button>
+          <Formik
+            initialValues={initialValues(post || {})}
+            onSubmit={onSubmit}
+            //validationSchema={validationSchema}
+          >
+            {({ isSubmitting, values, handleChange, errors, setFieldValue }) => (
+              <Form>
+                <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                  <div className="flex flex-col gap-4 p-6">
+                    {
+                      entityConfiguration
+                        .fields
+                        .filter((item) => item.showOnForm)
+                        .map(
+                          field => (
+                            <FormFields
+                              key={`form-fields-${field.id}`}
+                              type={field.type}
+                              field={field}
+                              values={values}
+                              handleChange={handleChange}
+                              errors={errors}
+                              setFieldValue={setFieldValue}
+                            />
+                          )
+                        )
+                    }
+                    <div className="flex">
+                      <Link
+                        className="w-32 flex-1 inline-flex items-center justify-center rounded-md border border-primary px-10 py-2 text-center font-medium text-primary hover:bg-opacity-90 lg:px-8 xl:px-10"
+                        href="/admin/posts"
+                      >
+                        Cancelar
+                      </Link>
+                      <div className="flex-1" />
+                      <button
+                        disabled={isSubmitting}
+                        type="submit"
+                        className="w-32 flex-1 inline-flex items-center justify-center rounded-md bg-primary px-10 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+                      >
+                        Guardar
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </form>
+              </Form>
+            )}
+          </Formik>
         </div>
       </AdminLayout>
     </Suspense>
