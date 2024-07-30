@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 TextField.propTypes = {
-  key: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
@@ -12,10 +11,10 @@ TextField.propTypes = {
   autoFocus: PropTypes.bool
 }
 
-export default function TextField({key, label, onChange, value, placeholder, id, required, autoFocus}){
+export default function TextField({label, onChange, value, placeholder, id, required, autoFocus}){
   return (
     <div
-      key={key}
+      key={`text-field--${label}`}
     >
       <label
         className="mb-3 block text-sm font-medium text-black dark:text-white"

@@ -1,19 +1,20 @@
 "use client";
 
-import React, { useState, Suspense} from "react";
+import React, { useState, Suspense, useEffect} from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Link from "next/link";
 
 import Breadcrumbs from "@/components/Breadcrumbs";
 import AdminLayout from "@/components/Layouts/AdminLayout";
-import TextField from "@/components/FormElements/TextField";
-
 
 import { entityConfiguration } from '../constants';
-import WysiwygField from "@/components/FormElements/WysiwygField";
-import Link from "next/link";
 
-function initialValues() {
+import { getPostById } from "@/service/postsServices";
+
+import { getFieldType } from "@/helper/form/FormFields";
+
+function initialValues(post) {
 
   let init = {};
 
@@ -21,7 +22,7 @@ function initialValues() {
     .fields
     .filter(item => item.showOnForm)
     .forEach(
-      item => init[item.id] = item.defaultValue
+      item => init[item.id] = post[item.id] || ""
     )
 
   return init;
@@ -40,44 +41,34 @@ function validationSchema() {
   };
 }
 
-const getFieldType = (type, field, formik) => {
-  switch (type) {
-    case "wysiwyg":
-      return (
-        <WysiwygField
-          key={`WysiwygField-${field.id}`}
-          toolbarClassName="toolbarClassName"
-          wrapperClassName="wrapperClassName"
-          editorClassName="editorClassName"
-          setFieldValue={(val) => formik.setFieldValue(field.id, val)}
-          value={formik.values[field.id]}
-        />
-      );
-    default:
-      return (
-        <>
-          <TextField
-            key={`TextField-${field.id}`}
-            id={field.id}
-            label={field.label}
-            onChange={formik.handleChange}
-            value={formik.values[field.id]}
-            onInvalid={formik.errors[field.id]}
-            placeholder={field.label}
-            required={field.require}
-            autoFocus={true}
-          />
-          {formik.errors[field.id] && <div>{formik.errors[field.id]}</div>}
-        </>
-      );
-  }
-};
+interface Params {
+  id: string;
+}
 
-export default function NewPost() {
+export default function UpdatePost(context: { readonly params: Params }) {
+
+  const { id } = context.params;
+
   const [isLoading, setIsLoading] = useState(false);
+  const [post, setPost] = useState();
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchPostData = async () => {
+      try {
+        const postData = await getPostById(id);
+        setPost(postData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching post data:', error);
+      }
+    };
+
+    fetchPostData();
+  }, [id]);
 
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(post || {}),
     validationSchema: Yup.object(validationSchema()),
     onSubmit: async (formData, { resetForm }) => {
       setIsLoading(true);
@@ -87,6 +78,8 @@ export default function NewPost() {
       setIsLoading(false);
     },
   });
+
+  console.log(formik);
 
   const create = async (formData) => {
     try {
@@ -102,7 +95,7 @@ export default function NewPost() {
     }
   };
 
-  if(isLoading) {
+    if(isLoading) {
     return <div>Loading...</div>
   }
 
@@ -119,8 +112,8 @@ export default function NewPost() {
                     .fields
                     .filter((item) => item.showOnForm)
                     .map(
-                      flied => (
-                        getFieldType(flied.type, flied, formik)
+                      field => (
+                        getFieldType(field.type, field, formik)
                       )
                     )
                 }

@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 
 import PublicLayout from "@/components/Layouts/PublicLayout";
 import HomeNews from "@/components/PostTemplate/HomeNews";
-import { getAllPosts } from "@/service/api/postsService";
+import { getAllPosts } from "@/service/postsServices";
 
 
 

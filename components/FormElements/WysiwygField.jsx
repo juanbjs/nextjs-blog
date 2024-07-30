@@ -9,13 +9,12 @@ import htmlToDraft from "html-to-draftjs";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 WysiwygField.propTypes = {
-  key: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   setFieldValue: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 };
 
-export default function WysiwygField({key, label, setFieldValue, value}){
+export default function WysiwygField({label, setFieldValue, value}) {
 
   const prepareDraft = (value) => {
     const draft = htmlToDraft(value);
@@ -37,7 +36,10 @@ export default function WysiwygField({key, label, setFieldValue, value}){
   };
 
   return (
-    <div key={key} className="border-[1.5px] border-stroke bg-transparent">
+    <div
+      key={`wysiwyg-${label}`}
+      className="border-[1.5px] border-stroke bg-transparent"
+    >
       <label
         className="mb-3 block text-sm font-medium text-black dark:text-white"
         htmlFor="title"

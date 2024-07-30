@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { create } from '@/service/api/postsService';
+import { createPost } from '@/service/api/postsService';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
@@ -10,8 +10,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
     }
 
-    const createdResource = await create(body); 
-    
+    const createdResource = await createPost(body);
+
     return NextResponse.json(createdResource, { status: 201 });
   } catch (error) {
     console.error('Error creating resource:', error);
