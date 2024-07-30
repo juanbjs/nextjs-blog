@@ -9,7 +9,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import AdminLayout from "@/components/Layouts/AdminLayout";
 
 import { entityConfiguration } from '../constants';
-import { getFieldType } from "@/helper/form/FormFields";
+import { FormFields } from "@/helper/form/FormFields";
 
 function initialValues() {
 
@@ -85,7 +85,15 @@ export default function NewPost() {
                     .filter((item) => item.showOnForm)
                     .map(
                       field => (
-                        getFieldType(field.type, field, formik.values, formik.handleChange, formik.errors, formik.setFieldValue)
+                        <FormFields
+                          key={`form-fields-${field.id}`}
+                          type={field.type}
+                          field={field}
+                          values={formik.values}
+                          handleChange={formik.handleChange}
+                          errors={formik.errors}
+                          setFieldValue={formik.setFieldValue}
+                        />
                       )
                     )
                 }
