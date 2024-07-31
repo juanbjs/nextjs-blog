@@ -1,5 +1,12 @@
 import Link from "next/link";
 
+interface PaginationProps {
+  count: number;
+  rowsPerPage: number;
+  currentPage: number;
+  page: number;
+}
+
 const round = (v, n) => {
   return Math.ceil(v * Math.pow(10, n)) / Math.pow(10, n);
 };
@@ -18,7 +25,8 @@ const Pagination = ({
   count,
   rowsPerPage,
   currentPage,
-}) => {
+  page,
+} : PaginationProps) => {
   const pages = round(count / rowsPerPage, 0);
 
   return (
@@ -26,7 +34,7 @@ const Pagination = ({
       <ul className="flex h-8 items-center justify-center -space-x-px text-sm">
         <li>
           <Link
-            href="#"
+            href={`?page=${Number(page) - 1}`}
             className="text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 ms-0 flex h-8 items-center justify-center rounded-s-lg border border-e-0 border-[#eee] px-3 dark:border-strokedark dark:hover:text-white"
           >
             <span className="sr-only">Previous</span>
@@ -50,7 +58,7 @@ const Pagination = ({
         {generatePage(pages).map((item, key) => (
           <li key={"li" + key}>
             <Link
-              href="#"
+              href={`?page=${item}`}
               className={`text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 ms-0 flex h-8 items-center justify-center border border-e-0 border-[#eee] px-3 dark:border-strokedark dark:hover:text-white ${currentPage === item && "font-bold"}`}
             >
               {item}
@@ -59,7 +67,7 @@ const Pagination = ({
         ))}
         <li>
           <Link
-            href="#"
+            href={`?page=${Number(page) + 1}`}
             className="text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 ms-0 flex h-8 items-center justify-center rounded-e-lg border border-e-0 border-[#eee] px-3 dark:border-strokedark dark:hover:text-white"
           >
             <span className="sr-only">Next</span>
