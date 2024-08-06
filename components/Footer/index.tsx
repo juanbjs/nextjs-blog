@@ -3,7 +3,7 @@ import Body from "../Body"
 import FacebookIcon from "../Icons/FacebookIcon"
 import InstagramIcon from "../Icons/InstagramIcon"
 import XIcon from "../Icons/XIcon"
-import YoutubeIcon from "../Icons/YoutubeIcon"
+import YoutubeIcon from "../Icons/YoutubeIcon.tsx"
 
 export default function Footer() {
   return (

@@ -2,7 +2,7 @@ import Link from "next/link";
 import FacebookIcon from "../Icons/FacebookIcon";
 import InstagramIcon from "../Icons/InstagramIcon";
 import XIcon from "../Icons/XIcon";
-import YoutubeIcon from "../Icons/YoutubeIcon";
+import YoutubeIcon from "../Icons/YoutubeIcon.tsx";
 import Body from "../Body";
 
 export default function Header() {

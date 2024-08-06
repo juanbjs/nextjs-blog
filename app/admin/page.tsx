@@ -7,7 +7,9 @@ export default async function Posts() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <AdminLayout>
+      <AdminLayout
+        messages={[]}
+      >
         <div className="flex flex-col gap-6">
           
         </div>
