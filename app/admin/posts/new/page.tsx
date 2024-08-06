@@ -73,7 +73,9 @@ export default function NewPost() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <AdminLayout>
+      <AdminLayout
+        messages= {[]}
+      >
         <Breadcrumbs pageName={entityConfiguration.title} rootName="Admin" />
         <div>
           <form onSubmit={formik.handleSubmit}>

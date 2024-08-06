@@ -8,7 +8,7 @@ import { Alert } from "@/model/Alert";
 
 interface AdminLayoutProps {
   children: ReactNode;
-  messages?: Array<Alert>;
+  messages: Array<Alert>;
 }
 
 function AdminLayout({children, messages} : AdminLayoutProps){
@@ -38,11 +38,5 @@ function AdminLayout({children, messages} : AdminLayoutProps){
     </>
   );
 }
-
-// Definición de defaultProps
-AdminLayout.defaultProps = {
-  children: null,
-  messages: [],
-};
 
 export default AdminLayout;

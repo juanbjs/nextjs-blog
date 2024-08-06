@@ -15,9 +15,9 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            Juan Zarate
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">FullStack Developer</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -58,7 +58,7 @@ const DropdownUser = () => {
           <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-8 dark:border-strokedark">
             <li>
               <Link
-                href="/profile"
+                href="#"
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <svg
@@ -78,7 +78,7 @@ const DropdownUser = () => {
                     fill=""
                   />
                 </svg>
-                My Profile
+                Mi Perfil
               </Link>
             </li>
             <li>
@@ -99,12 +99,12 @@ const DropdownUser = () => {
                     fill=""
                   />
                 </svg>
-                My Contacts
+                Mis Contactos
               </Link>
             </li>
             <li>
               <Link
-                href="/settings"
+                href="#"
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <svg
@@ -124,7 +124,7 @@ const DropdownUser = () => {
                     fill=""
                   />
                 </svg>
-                Account Settings
+                Configuración de Cuenta
               </Link>
             </li>
           </ul>
@@ -146,7 +146,7 @@ const DropdownUser = () => {
                 fill=""
               />
             </svg>
-            Log Out
+            Salir
           </button>
         </div>
       )}

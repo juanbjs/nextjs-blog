@@ -92,7 +92,7 @@ const Header = ({sidebarOpen, setSidebarOpen}) => {
 
               <input
                 type="text"
-                placeholder="Type to search..."
+                placeholder="Buscar..."
                 className="w-full bg-transparent pl-9 pr-4 font-medium focus:outline-none xl:w-125"
               />
             </div>

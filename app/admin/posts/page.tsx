@@ -14,7 +14,9 @@ export default async function Posts({searchParams}) {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <AdminLayout>
+      <AdminLayout
+        messages= {[]}
+      >
         <Breadcrumbs pageName={entityConfiguration.title} rootName="Admin" />
         <div className="flex flex-col gap-6">
           <div className="flex justify-end">
