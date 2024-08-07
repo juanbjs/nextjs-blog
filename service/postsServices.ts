@@ -60,31 +60,50 @@ export async function create(formData: Post) {
     console.error('Error de red o de servidor:', error.message);
     throw error; // Propaga el error para manejarlo en otro lugar si es necesario
   }
-};
+}
+export function update(formData: Post): Promise<Post> {
+  return fetch(`/api/posts/admin/${formData._id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+  .then(response => {
+    if (!response.ok) {
+      return response.json().then(errorData => {
+        console.error('Error al crear el post:', errorData.message || response.statusText);
+        throw new Error(errorData.message || 'Error al crear el post');
+      });
+    }
+    return response.json();
+  })
+  .then(data => {
+    return data;
+  })
+  .catch(error => {
+    console.error('Error de red o de servidor:', error.message);
+    throw error;
+  });
+}
 
-export async function update(formData: Post) {
+export async function deletePost(postId: string): Promise<void> {
   try {
-    const response = await fetch(`/api/posts/admin/${formData._id}`, {
-      method: "PUT",
+    const response = await fetch(`/api/posts/admins/${postId}`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
     });
 
-    // Verificar si la respuesta es exitosa
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('Error al crear el post:', errorData.message || response.statusText);
-      throw new Error(errorData.message || 'Error al crear el post');
+      console.error('Error al eliminar el post:', errorData.message || response.statusText);
+      throw new Error(errorData.message || 'Error al eliminar el post');
     }
-
-    // Retornar los datos de la respuesta si es necesario
-    const data = await response.json();
-    return data;
 
   } catch (error) {
     console.error('Error de red o de servidor:', error.message);
-    throw error; // Propaga el error para manejarlo en otro lugar si es necesario
+    throw error;
   }
-};
+}

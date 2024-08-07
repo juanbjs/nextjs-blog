@@ -1,6 +1,28 @@
-export default function TrashButton() {
+"use client";
+
+import React from "react";
+
+interface TrashButtonProps {
+  id: string;
+}
+
+export default function TrashButton({ id }: Readonly<TrashButtonProps>) {
+
+  const handleDelete = async () => {
+    try {
+      console.log('handleDelete', id);
+
+    } catch (error) {
+      console.error('Error al eliminar el post:', error.message);
+    }
+  };
+
   return (
-    <button className="hover:text-primary">
+    <button
+      onClick = {handleDelete}
+      className="hover:text-primary"
+      key={id}
+    >
       <svg
         className="fill-current"
         width="18"

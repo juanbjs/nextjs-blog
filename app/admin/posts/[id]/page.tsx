@@ -31,8 +31,9 @@ function initialValues(post) {
 }
 
 function validationSchema() {
-  return {
+  return Yup.object().shape({
     title: Yup.string().required("Este campo es requerido"),
+    category: Yup.string().required("Este campo es requerido"),
     /*urlToImage: Yup
                   .string()
                   .matches(
@@ -40,7 +41,7 @@ function validationSchema() {
                       'Enter correct url!'
                   )
                   .required('Please enter website')*/
-  };
+  });
 }
 
 interface Params {
@@ -53,7 +54,7 @@ export default function UpdatePost(context: { readonly params: Params }) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [post, setPost] = useState<Post>();
-  const [messages, setMessages] = useState<Array<Alert>>();
+  const [messages, setMessages] = useState<Array<Alert>>([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -81,14 +82,19 @@ export default function UpdatePost(context: { readonly params: Params }) {
 
     setSubmitting(false);
     setIsLoading(true);
-    try {
-      update(valuesOri);
 
-    } catch (error) {
-      
-    }
-    setIsLoading(false);
-  }; 
+    update(valuesOri)
+      .then(data => {
+        console.log('Post actualizado exitosamente:', data);
+        setMessages([{ type: "success", title: "Success", subTitle: "Post updated successfully" }]);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error('Error updating post:', error);
+        setMessages([{ type: "error", title: "Error", subTitle: "Error updating post" }]);
+        setIsLoading(false);
+      });
+  };
 
   if(isLoading) {
     return <div>Loading...</div>
@@ -104,7 +110,7 @@ export default function UpdatePost(context: { readonly params: Params }) {
           <Formik
             initialValues={initialValues(post || {})}
             onSubmit={onSubmit}
-            //validationSchema={validationSchema}
+            validationSchema={validationSchema}
           >
             {({ isSubmitting, values, handleChange, errors, setFieldValue }) => (
               <Form>

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Link from "next/link";
 import Pagination from "./Pagination";
 import { fullDateFormat } from "@/util/dateFormat";
@@ -88,7 +90,7 @@ const Table = ({ configuration, data, page } : TableProps) => {
                       >
                         <EyeButton />
                       </Link>
-                      <TrashButton />
+                      <TrashButton id={row._id} />
                     </div>
                   </td>
                 </tr>

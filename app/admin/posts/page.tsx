@@ -7,7 +7,14 @@ import Table from "@/components/Table";
 import { entityConfiguration } from './constants';
 import { getAllPosts } from "@/service/postsServices";
 
-export default async function Posts({searchParams}) {
+interface PostsProps {
+  searchParams: {
+    page: number;
+  }
+}
+
+
+export default async function Posts({searchParams}: Readonly<PostsProps>) {
 
   const posts = await getAllPosts();
   const { page } = searchParams;
