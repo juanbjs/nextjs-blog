@@ -61,6 +61,7 @@ export async function create(formData: Post) {
     throw error; // Propaga el error para manejarlo en otro lugar si es necesario
   }
 }
+
 export function update(formData: Post): Promise<Post> {
   return fetch(`/api/posts/admin/${formData._id}`, {
     method: "PUT",
@@ -87,23 +88,27 @@ export function update(formData: Post): Promise<Post> {
   });
 }
 
-export async function deletePost(postId: string): Promise<void> {
-  try {
-    const response = await fetch(`/api/posts/admins/${postId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
+export function deletePost(postId: string): Promise<Post> {
+  return fetch(`/api/posts/admin/${postId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then(response => {
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Error al eliminar el post:', errorData.message || response.statusText);
-      throw new Error(errorData.message || 'Error al eliminar el post');
+      return response.json().then(errorData => {
+        console.error('Error al crear el post:', errorData.message || response.statusText);
+        throw new Error(errorData.message || 'Error al crear el post');
+      });
     }
-
-  } catch (error) {
+    return response.json();
+  })
+  .then(data => {
+    return data;
+  })
+  .catch(error => {
     console.error('Error de red o de servidor:', error.message);
     throw error;
-  }
+  });
 }

@@ -1,6 +1,7 @@
 "use client";
-
 import React from "react";
+
+import { deletePost } from "@/service/postsServices";
 
 interface TrashButtonProps {
   id: string;
@@ -8,10 +9,22 @@ interface TrashButtonProps {
 
 export default function TrashButton({ id }: Readonly<TrashButtonProps>) {
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     try {
-      console.log('handleDelete', id);
 
+      const confirmDelete = confirm("Estas Seguro de eliminar el registro.");
+
+      if (!confirmDelete) {
+        return;
+      }
+
+      deletePost(id)
+        .then(data => {
+          console.log('Post actualizado exitosamente:', data);
+        })
+        .catch(error => {
+          console.error('Error updating post:', error);
+        });
     } catch (error) {
       console.error('Error al eliminar el post:', error.message);
     }

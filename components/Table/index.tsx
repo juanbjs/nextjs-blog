@@ -10,6 +10,7 @@ interface TableProps {
   configuration: any;
   data: any;
   page?: number;
+  newUrl?: string;
 }
 
 function getFieldValue(row, field) {
@@ -38,71 +39,86 @@ const getFieldType = (type, value) => {
   }
 };
 
-const Table = ({ configuration, data, page } : TableProps) => {
+const Table = ({ configuration, data, page, newUrl } : TableProps) => {
   const fields = configuration.fields;
   const rowsPerPage = 10;
   const startPage = Number(page);
   const currentPage = (startPage - 1) * rowsPerPage;
 
   return (
-    <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <div className="max-w-full overflow-x-auto">
-        <table className="w-full table-auto">
-          <thead>
-            <tr className="bg-gray-2 text-left dark:bg-meta-4">
-              {fields
-                .filter((item) => item.showOnTable)
-                .map((item, key) => (
-                  <th
-                    key={item.id + "-" + key}
-                    className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
-                  >
-                    {item.label}
-                  </th>
+    <div className="flex flex-col gap-6">
+      
+      {
+        newUrl && (
+          <div className="flex justify-end">
+            <a 
+              className="inline-flex items-center justify-center rounded-md bg-primary px-10 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 w-32"
+              href={newUrl}>
+              Nuevo
+            </a>
+          </div>
+        )
+      }
+      
+      <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className="max-w-full overflow-x-auto">
+          <table className="w-full table-auto">
+            <thead>
+              <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                {fields
+                  .filter((item) => item.showOnTable)
+                  .map((item, key) => (
+                    <th
+                      key={item.id + "-" + key}
+                      className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
+                    >
+                      {item.label}
+                    </th>
+                  ))}
+                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                  Acciones
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {data
+                .slice(currentPage, currentPage + rowsPerPage)
+                .map((row, rowKey) => (
+                  <tr key={row._id + "-" + rowKey}>
+                    {fields
+                      .filter((item) => item.showOnTable)
+                      .map((column, columnKey) => (
+                        <td
+                          key={column.id + "-" + columnKey}
+                          className="border-b border-[#eee] px-4 dark:border-strokedark xl:pl-11"
+                        >
+                          {getFieldType(
+                            column.type,
+                            getFieldValue(row, column.id),
+                          )}{" "}
+                        </td>
+                      ))}
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <div className="flex items-center justify-center space-x-3.5">
+                        <Link
+                          href={`/admin/posts/${row._id}`}
+                        >
+                          <EyeButton />
+                        </Link>
+                        <TrashButton id={row._id} />
+                      </div>
+                    </td>
+                  </tr>
                 ))}
-              <th className="px-4 py-4 font-medium text-black dark:text-white">
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {data
-              .slice(currentPage, currentPage + rowsPerPage)
-              .map((row, rowKey) => (
-                <tr key={row._id + "-" + rowKey}>
-                  {fields
-                    .filter((item) => item.showOnTable)
-                    .map((column, columnKey) => (
-                      <td
-                        key={column.id + "-" + columnKey}
-                        className="border-b border-[#eee] px-4 dark:border-strokedark xl:pl-11"
-                      >
-                        {getFieldType(
-                          column.type,
-                          getFieldValue(row, column.id),
-                        )}{" "}
-                      </td>
-                    ))}
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <div className="flex items-center justify-center space-x-3.5">
-                      <Link
-                        href={`/admin/posts/${row._id}`}
-                      >
-                        <EyeButton />
-                      </Link>
-                      <TrashButton id={row._id} />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        <Pagination
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          currentPage={currentPage}
-          page={page}
-        />
+            </tbody>
+          </table>
+          <Pagination
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            currentPage={currentPage}
+            page={page}
+          />
+        </div>
       </div>
     </div>
   );

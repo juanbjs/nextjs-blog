@@ -44,9 +44,7 @@ export async function DELETE(req: NextRequest, context: { params: Params }): Pro
   const { id } = context.params;
 
   try {
-    const body = await req.json();
-
-    if (!body) {
+    if (!id) {
       return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
     }
 
